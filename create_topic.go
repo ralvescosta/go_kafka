@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net"
 	"strconv"
 
@@ -8,35 +9,32 @@ import (
 )
 
 func CreateTopic() {
-	topic := "first-topic"
-	partition := 2
-
 	conn, err := kafka.Dial("tcp", "localhost:9092")
 	if err != nil {
-		panic(err.Error())
+		log.Fatal("Failed to Dial:", err)
 	}
 	defer conn.Close()
 
 	controller, err := conn.Controller()
 	if err != nil {
-		panic(err.Error())
+		log.Fatal("Failed to create controller:", err)
 	}
 
 	var controllerConn *kafka.Conn
 	controllerConn, err = kafka.Dial("tcp", net.JoinHostPort(controller.Host, strconv.Itoa(controller.Port)))
 	if err != nil {
-		panic(err.Error())
+		log.Fatal("Failed to Admin Dial:", err)
 	}
 	defer controllerConn.Close()
 
 	topicConfigs := kafka.TopicConfig{
-		Topic:             topic,
-		NumPartitions:     partition,
+		Topic:             TOPIC,
+		NumPartitions:     PARTITIONS,
 		ReplicationFactor: 1,
 	}
 
 	err = controllerConn.CreateTopics(topicConfigs)
 	if err != nil {
-		panic(err.Error())
+		log.Fatal("Failed to desconnect:", err)
 	}
 }
