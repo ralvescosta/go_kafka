@@ -4,7 +4,7 @@ const TOPIC string = "first-topic"
 const PARTITIONS int = 1
 
 func main() {
-	RunProducer()
+	// go Producer()
 
-	// Consumer()
+	Consumer()
 }
