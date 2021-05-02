@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"time"
 
@@ -10,15 +9,11 @@ import (
 )
 
 func RunProducer() {
-	for {
-		fmt.Println("Produce a message")
-		producer()
-		time.Sleep(time.Second * 2)
-	}
+	producer()
 }
 
 func producer() {
-	conn, err := kafka.DialLeader(context.Background(), "tcp", "localhost:9092", TOPIC, PARTITIONS)
+	conn, err := kafka.DialLeader(context.Background(), "tcp", "localhost:9092", "first-topic", 1)
 	if err != nil {
 		log.Fatal("Failed to dial leader:", err)
 	}

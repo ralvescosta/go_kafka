@@ -1,10 +1,10 @@
 package main
 
 const TOPIC string = "first-topic"
-const PARTITIONS int = 2
+const PARTITIONS int = 1
 
 func main() {
-	// go RunProducer()
+	RunProducer()
 
-	Consumer()
+	// Consumer()
 }
